@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/listing/src",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "webpack": true,
+    "tsConfigPath": "apps/listing/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/listing",
+  "projects": {
+    "listings": {
+      "type": "application",
+      "root": "apps/listings",
+      "entryFile": "main",
+      "sourceRoot": "apps/listings/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/listings/tsconfig.app.json"
+      }
+    },
+    "disputes": {
+      "type": "application",
+      "root": "apps/disputes",
+      "entryFile": "main",
+      "sourceRoot": "apps/disputes/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/disputes/tsconfig.app.json"
+      }
+    },
+    "membership": {
+      "type": "application",
+      "root": "apps/membership",
+      "entryFile": "main",
+      "sourceRoot": "apps/membership/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/membership/tsconfig.app.json"
+      }
+    },
+    "seller-account": {
+      "type": "application",
+      "root": "apps/seller-account",
+      "entryFile": "main",
+      "sourceRoot": "apps/seller-account/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/seller-account/tsconfig.app.json"
+      }
+    }
+  }
+}
