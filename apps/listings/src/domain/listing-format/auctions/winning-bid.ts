@@ -1,6 +1,7 @@
-﻿import { ValueObject } from 'apps/listings/src/infrastructure/value-object';
-import { Money } from '../../money';
-import { Price } from './price';
+﻿import { ValueObject } from '@app/listings/src/infrastructure/value-object';
+
+import { Money } from '@app/listings/src/domain/money';
+import { Price } from '@app/listings/src/domain/listing-format/auctions/price';
 
 export class WinningBid extends ValueObject<WinningBid> {
   public bidderId: string;

@@ -1,20 +1,20 @@
 ﻿import { v4 as uuid } from 'uuid';
 
-import { IAuctionRepository } from 'apps/listings/src/domain/models/listing-format/auctions/iauction-repository';
-import { IListingRepository } from 'apps/listings/src/domain/models/listings/ilisting-repository';
-
-import { Auction } from 'apps/listings/src/domain/models/listing-format/auctions/auction';
-import { Listing } from 'apps/listings/src/domain/models/listings/listing';
-
+import { IListingRepository } from '@app/listings/src/domain/listings/listing.repository';
 import {
   ListingFormat,
   FormatType,
-} from 'apps/listings/src/domain/models/listings/listing-format';
+} from '@app/listings/src/domain/listings/listing-format';
+import { Listing } from '@app/listings/src/domain/listings/listing.entity';
 
-import { Money } from 'apps/listings/src/domain/models/money';
+import { Auction } from '@app/listings/src/domain/listing-format/auctions/auction.entity';
+import { IAuctionRepository } from '@app/listings/src/domain/listing-format/auctions/auction.repository';
 
-import { ISellerService } from 'apps/listings/src/domain/models/sellers/iseller-service';
-import { AuctionCreation } from '../../../cqrs/commands/auctions/auction-creation.command';
+import { Money } from '@app/listings/src/domain/money';
+
+import { ISellerService } from '@app/listings/src/domain/sellers/seller.service';
+
+import { AuctionCreation } from '@app/listings/src/messages/commands/auctions/auction-creation.command';
 
 export class CreateAuctionService {
   // private IDocumentSession _unitOfWork;

@@ -1,19 +1,19 @@
-﻿import { IClock } from 'apps/listings/src/infrastructure/clock';
+﻿import { IClock } from '@app/listings/src/infrastructure/clock';
 import {
   DomainEvents,
   EventRegister,
-} from 'apps/listings/src/infrastructure/domain-events';
+} from '@app/listings/src/infrastructure/domain-events';
 
-import { IAuctionRepository } from './auction.repository';
-import { IBidHistoryRepository } from './bid-history/bid-history.repository';
-import { IMemberService } from '../../members/member.service';
+import { IAuctionRepository } from '@app/listings/src/domain/listing-format/auctions/auction.repository';
+import { IBidHistoryRepository } from '@app/listings/src/domain/listing-format/auctions/bid-history/bid-history.repository';
+import { IMemberService } from '@app/listings/src/domain/members/member.service';
 
-import { Bid } from './bid-history/bid';
-import { Offer } from './offer';
-import { Money } from '../../money';
+import { Bid } from '@app/listings/src/domain/listing-format/auctions/bid-history/bid';
+import { Offer } from '@app/listings/src/domain/listing-format/auctions/offer';
+import { Money } from '@app/listings/src/domain/money';
 
-import { BidPlaced } from 'apps/listings/src/cqrs/events/auctions/bid-placed.event';
-import { OutBid } from 'apps/listings/src/cqrs/events/auctions/out-bid.event';
+import { BidPlaced } from '@app/listings/src/messages/events/auctions/bid-placed.event';
+import { OutBid } from '@app/listings/src/messages/events/auctions/out-bid.event';
 
 export class BidOnAuctionService {
   constructor(

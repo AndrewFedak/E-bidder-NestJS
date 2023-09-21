@@ -1,8 +1,9 @@
-import { DomainEvents } from '../../infrastructure/domain-events';
-import { Answer } from './answer';
+import { DomainEvents } from '@app/listings/src/infrastructure/domain-events';
 
-import { QuestionAnswered } from 'apps/listings/src/cqrs/events/QandA/question-answered.event';
-import { QuestionSubmitted } from 'apps/listings/src/cqrs/events/QandA/question-submitted.event';
+import { QuestionAnswered } from '@app/listings/src/messages/events/QandA/question-answered.event';
+import { QuestionSubmitted } from '@app/listings/src/messages/events/QandA/question-submitted.event';
+
+import { Answer } from './answer';
 
 export class Question {
   desc: string;

@@ -1,5 +1,6 @@
-﻿import { Listing } from '../../listings/listing';
-import { Money } from '../../money';
+﻿import { Listing } from '@app/listings/src/domain/listings/listing.entity';
+
+import { Money } from '@app/listings/src/domain/money';
 
 export class FixedPriceListing {
   constructor(

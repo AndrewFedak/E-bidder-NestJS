@@ -1,4 +1,4 @@
-﻿import { Listing } from './listing';
+﻿import { Listing } from './listing.entity';
 
 export interface IListingRepository {
   add(listing: Listing): void;

@@ -1,11 +1,12 @@
 import { v4 as uuid } from 'uuid';
 
-import { ListingFormat } from './listing-format';
-import { WatchedItem } from '../watch-list/watched-item';
-import { Question } from '../QandA/question';
+import { Entity } from '@app/listings/src/infrastructure/entity';
 
-export class Listing {
-  private id: string;
+import { ListingFormat } from './listing-format';
+import { WatchedItem } from '@app/listings/src/domain/watch-list/watched-item';
+import { Question } from '@app/listings/src/domain/QandA/question';
+
+export class Listing extends Entity<string> {
   private format: ListingFormat;
   private title: string;
   private description: string;
@@ -18,6 +19,7 @@ export class Listing {
   private dispatchTime: string;
 
   constructor(id: string, sellerId: string, format: ListingFormat) {
+    super();
     this.id = id;
     this.sellerId = sellerId;
     this.format = format;

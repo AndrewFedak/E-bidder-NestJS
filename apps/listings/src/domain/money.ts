@@ -1,4 +1,4 @@
-import { ValueObject } from '../infrastructure/value-object';
+import { ValueObject } from '@app/listings/src/infrastructure/value-object';
 
 export class Money extends ValueObject<Money> {
   protected value: number;

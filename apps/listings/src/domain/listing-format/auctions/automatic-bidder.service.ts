@@ -1,5 +1,5 @@
-﻿import { Offer } from './offer';
-import { WinningBid } from './winning-bid';
+﻿import { Offer } from '@app/listings/src/domain/listing-format/auctions/offer';
+import { WinningBid } from '@app/listings/src/domain/listing-format/auctions/winning-bid';
 
 // Domain service (Chapter 17 of DDD book)
 // A primary concern for domain services is carrying out some behavior involving entities or value objects.
@@ -56,24 +56,20 @@ export class AutomaticBidder {
   }
 
   private calculateNextBid(winningBid: WinningBid, offer: Offer): WinningBid {
-    let bid: WinningBid;
-
     if (winningBid.canBeExceededBy(offer.maximumBid)) {
-      bid = new WinningBid(
+      return new WinningBid(
         offer.bidderId,
         offer.maximumBid,
         winningBid.currentAuctionPrice.bidIncrement(),
         offer.timeOfOffer,
       );
-    } else {
-      bid = new WinningBid(
-        offer.bidderId,
-        offer.maximumBid,
-        offer.maximumBid,
-        offer.timeOfOffer,
-      );
     }
 
-    return bid;
+    return new WinningBid(
+      offer.bidderId,
+      offer.maximumBid,
+      offer.maximumBid,
+      offer.timeOfOffer,
+    );
   }
 }

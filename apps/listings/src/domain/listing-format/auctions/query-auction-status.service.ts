@@ -1,5 +1,6 @@
-﻿import { IClock } from 'apps/listings/src/infrastructure/clock';
-import { IBidHistoryRepository } from 'apps/listings/src/domain/models/listing-format/auctions/bid-history/ibid-history.repository';
+﻿import { IClock } from '@app/listings/src/infrastructure/clock';
+
+import { IBidHistoryRepository } from '@app/listings/src/domain/listing-format/auctions/bid-history/bid-history.repository';
 
 import { AuctionStatus } from './auction-status';
 

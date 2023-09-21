@@ -1,4 +1,4 @@
-import { Action } from './action';
+export type Action<T> = (e: T) => void;
 
 export type EventRegister<T> = {
   eventType: new (...args: unknown[]) => T;

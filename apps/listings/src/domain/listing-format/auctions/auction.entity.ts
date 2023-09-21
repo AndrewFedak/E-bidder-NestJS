@@ -1,14 +1,14 @@
-﻿import { Entity } from 'apps/listings/src/infrastructure/entity';
-import { DomainEvents } from 'apps/listings/src/infrastructure/domain-events';
+﻿import { Entity } from '@app/listings/src/infrastructure/entity';
+import { DomainEvents } from '@app/listings/src/infrastructure/domain-events';
+
+import { BidPlaced } from '@app/listings/src/messages/events/auctions/bid-placed.event';
+import { OutBid } from '@app/listings/src/messages/events/auctions/out-bid.event';
+
+import { Money } from '@app/listings/src/domain/money';
+import { WinningBid } from '@app/listings/src/domain/listing-format/auctions/winning-bid';
+import { Offer } from '@app/listings/src/domain/listing-format/auctions/offer';
 
 import { AutomaticBidder } from './automatic-bidder.service';
-
-import { BidPlaced } from '../../../cqrs/events/auctions/bid-placed.event';
-import { OutBid } from '../../../cqrs/events/auctions/out-bid.event';
-
-import { Money } from '../../money';
-import { WinningBid } from './winning-bid';
-import { Offer } from './offer';
 
 export class Auction extends Entity<string> {
   private winningBid: WinningBid;

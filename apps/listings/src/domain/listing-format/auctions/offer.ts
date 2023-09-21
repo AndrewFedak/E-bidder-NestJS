@@ -1,5 +1,6 @@
-﻿import { ValueObject } from 'apps/listings/src/infrastructure/value-object';
-import { Money } from '../../money';
+﻿import { ValueObject } from '@app/listings/src/infrastructure/value-object';
+
+import { Money } from '@app/listings/src/domain/money';
 
 export class Offer extends ValueObject<Offer> {
   constructor(

@@ -1,6 +1,6 @@
-﻿import { IBidHistoryRepository } from '../domain/models/listing-format/auctions/bid-history/ibid-history.repository';
+﻿import { Bid } from '@app/listings/src/domain/listing-format/auctions/bid-history/bid';
 
-import { Bid } from '../domain/models/listing-format/auctions/bid-history/bid';
+import { IBidHistoryRepository } from '@app/listings/src/domain/listing-format/auctions/bid-history/bid-history.repository';
 
 export class BidHistoryRepository implements IBidHistoryRepository {
   constructor(private readonly _session: ISession) {}

@@ -1,5 +1,6 @@
-﻿import { Auction } from '../domain/models/listing-format/auctions/auction';
-import { IAuctionRepository } from '../domain/models/listing-format/auctions/iauction-repository';
+﻿import { Auction } from '@app/listings/src/domain/listing-format/auctions/auction.entity';
+
+import { IAuctionRepository } from '@app/listings/src/domain/listing-format/auctions/auction.repository';
 
 export class AuctionRepository implements IAuctionRepository {
   constructor(private readonly _session: ISession) {}
