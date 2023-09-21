@@ -1,6 +1,8 @@
 ﻿import { Offer } from './offer';
 import { WinningBid } from './winning-bid';
 
+// Domain service (Chapter 17 of DDD book)
+// A primary concern for domain services is carrying out some behavior involving entities or value objects.
 export class AutomaticBidder {
   generateNextSequenceOfBidsAfter(
     offer: Offer,

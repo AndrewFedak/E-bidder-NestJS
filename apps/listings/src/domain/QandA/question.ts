@@ -1,7 +1,8 @@
+import { DomainEvents } from '../../infrastructure/domain-events';
 import { Answer } from './answer';
 
-import { QuestionAnswered } from './question-answered.event';
-import { QuestionSubmitted } from './question-submitted.event';
+import { QuestionAnswered } from 'apps/listings/src/cqrs/events/QandA/question-answered.event';
+import { QuestionSubmitted } from 'apps/listings/src/cqrs/events/QandA/question-submitted.event';
 
 export class Question {
   desc: string;
@@ -17,7 +18,7 @@ export class Question {
     private timeOfQuestion: Date,
   ) {
     this.desc = question;
-    DomainEvents.Raise(new QuestionSubmitted(this.id, this.listingId));
+    DomainEvents.raise(new QuestionSubmitted(this.id, this.listingId));
   }
 
   submitAnAnswer(
@@ -27,8 +28,8 @@ export class Question {
     timeOfAnswer: Date,
   ): void {
     this.publishOnListing = publishOnListing;
-    this.answer = new Answer(timeOfAnswer, answer);
+    this.answer = new Answer(this.id, timeOfAnswer, answer);
 
-    DomainEvents.Raise(new QuestionAnswered(this.id, this.listingId));
+    DomainEvents.raise(new QuestionAnswered(this.id, this.listingId));
   }
 }

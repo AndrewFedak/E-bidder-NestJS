@@ -13,14 +13,14 @@ export abstract class ValueObject<T extends ValueObject<T>> {
     }
 
     for (let i = 0; i < thisProps.length; i++) {
-      if (thisProps[i] instanceof ValueObject) {
-        if (
-          (thisProps[i] as ValueObject<any>).equals(otherProps[i]) === false
-        ) {
+      const thisProp = thisProps[i];
+      const otherProp = otherProps[i];
+      if (thisProp instanceof ValueObject) {
+        if ((thisProp as ValueObject<any>).equals(otherProp) === false) {
           return false;
         }
       }
-      if (thisProps[i] !== otherProps[i]) {
+      if (thisProp !== otherProp) {
         return false;
       }
     }

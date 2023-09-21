@@ -13,6 +13,11 @@ export class Bid extends ValueObject<Bid> {
     super();
   }
   protected override getAttributesToIncludeInEqualityCheck() {
-    return [this.auctionId, this.bidderId, this.amountBid, this.timeOfBid];
+    return [
+      this.auctionId,
+      this.bidderId,
+      this.amountBid,
+      this.timeOfBid.toString(),
+    ];
   }
 }

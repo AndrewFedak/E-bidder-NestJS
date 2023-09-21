@@ -1,9 +1,10 @@
 ﻿import { Entity } from 'apps/listings/src/infrastructure/entity';
+import { DomainEvents } from 'apps/listings/src/infrastructure/domain-events';
 
-import { AutomaticBidder } from './automatic-bidder';
+import { AutomaticBidder } from './automatic-bidder.service';
 
 import { BidPlaced } from '../../../cqrs/events/auctions/bid-placed.event';
-import { OutBid } from './out-bid';
+import { OutBid } from '../../../cqrs/events/auctions/out-bid.event';
 
 import { Money } from '../../money';
 import { WinningBid } from './winning-bid';
@@ -14,13 +15,12 @@ export class Auction extends Entity<string> {
   private hasEnded: boolean;
 
   constructor(
-    id: string,
+    public id: string,
     private listingId: string,
     private startingPrice: Money,
     private endsAt: Date,
   ) {
     super();
-    this.id = id;
   }
 
   reduceTheStartingPrice(): void {
@@ -42,12 +42,14 @@ export class Auction extends Entity<string> {
     return this.hasEnded == false;
   }
 
-  placeBidFor(offer: Offer, currentTime: Date) {
+  placeBidFor(offer: Offer, currentTime: Date): void {
     if (this.stillInProgress(currentTime)) {
-      if (this.firstOffer()) this.placeABidForTheFirst(offer);
-      else if (this.bidderIsIncreasingMaximumBidToNew(offer))
+      if (this.firstOffer()) {
+        return this.placeABidForTheFirst(offer);
+      }
+      if (this.bidderIsIncreasingMaximumBidToNew(offer)) {
         this.winningBid = this.winningBid.raiseMaximumBidTo(offer.maximumBid);
-      else if (this.winningBid.canBeExceededBy(offer.maximumBid)) {
+      } else if (this.winningBid.canBeExceededBy(offer.maximumBid)) {
         const newBids = new AutomaticBidder().generateNextSequenceOfBidsAfter(
           offer,
           this.winningBid,
@@ -85,11 +87,11 @@ export class Auction extends Entity<string> {
 
   private place(newBid: WinningBid): void {
     if (!this.firstOffer() && this.winningBid.wasMadeBy(newBid.bidderId)) {
-      DomainEvents.Raise(new OutBid(this.id, this.winningBid.bidderId));
+      DomainEvents.raise(new OutBid(this.id, this.winningBid.bidderId));
     }
 
     this.winningBid = newBid;
-    DomainEvents.Raise(
+    DomainEvents.raise(
       new BidPlaced(
         this.id,
         newBid.bidderId,

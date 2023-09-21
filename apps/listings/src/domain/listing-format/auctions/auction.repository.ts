@@ -1,4 +1,4 @@
-﻿import { Auction } from './auction';
+﻿import { Auction } from './auction.entity';
 
 export interface IAuctionRepository {
   add(item: Auction): void;
