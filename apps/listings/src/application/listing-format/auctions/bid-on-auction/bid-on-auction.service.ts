@@ -1,15 +1,24 @@
-﻿import { IClock } from '@app/listings/src/infrastructure/clock';
+﻿import { Inject } from '@nestjs/common';
+
+import { IClock } from '@app/listings/src/infrastructure/clock';
 import {
   DomainEvents,
   EventRegister,
 } from '@app/listings/src/infrastructure/domain-events';
 
-import { IAuctionRepository } from '@app/listings/src/domain/listing-format/auctions/auction.repository';
-import { IBidHistoryRepository } from '@app/listings/src/domain/listing-format/auctions/bid-history/bid-history.repository';
-import { IMemberService } from '@app/listings/src/domain/members/member.service';
+import {
+  IAuctionRepository,
+  AUCTION_REPOSITORY_TOKEN,
+} from '@app/listings/src/domain/listing-format/auctions/models/auction/auction.repository';
+import {
+  IBidHistoryRepository,
+  BID_HISTORY_REPOSITORY_TOKEN,
+} from '@app/listings/src/domain/listing-format/auctions/models/bids/bid-history.repository';
 
-import { Bid } from '@app/listings/src/domain/listing-format/auctions/bid-history/bid';
-import { Offer } from '@app/listings/src/domain/listing-format/auctions/offer';
+import { MemberService } from '@app/listings/src/domain/members/member.service';
+
+import { Bid } from '@app/listings/src/domain/listing-format/auctions/models/bids/bid';
+import { Offer } from '@app/listings/src/domain/listing-format/auctions/models/offer';
 import { Money } from '@app/listings/src/domain/money';
 
 import { BidPlaced } from '@app/listings/src/messages/events/auctions/bid-placed.event';
@@ -17,9 +26,10 @@ import { OutBid } from '@app/listings/src/messages/events/auctions/out-bid.event
 
 export class BidOnAuctionService {
   constructor(
-    private _auctions: IAuctionRepository,
+    @Inject(AUCTION_REPOSITORY_TOKEN) private _auctions: IAuctionRepository,
+    @Inject(BID_HISTORY_REPOSITORY_TOKEN)
     private _bidHistory: IBidHistoryRepository,
-    private _memberService: IMemberService,
+    private _memberService: MemberService,
     private _clock: IClock,
   ) {}
 

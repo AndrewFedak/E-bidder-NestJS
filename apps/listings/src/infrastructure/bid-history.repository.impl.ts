@@ -1,4 +1,4 @@
-﻿import { Bid } from '@app/listings/src/domain/listing-format/auctions/bid-history/bid';
+﻿import { Bid } from '@app/listings/src/domain/listing-format/auctions/models/bids/bid';
 
 import { IBidHistoryRepository } from '@app/listings/src/domain/listing-format/auctions/bid-history/bid-history.repository';
 

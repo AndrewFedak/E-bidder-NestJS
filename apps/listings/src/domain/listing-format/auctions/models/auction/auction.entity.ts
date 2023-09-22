@@ -8,7 +8,7 @@ import { Money } from '@app/listings/src/domain/money';
 import { WinningBid } from '@app/listings/src/domain/listing-format/auctions/winning-bid';
 import { Offer } from '@app/listings/src/domain/listing-format/auctions/offer';
 
-import { AutomaticBidder } from './automatic-bidder.service';
+import { AutomaticBidder } from './automatic-bidder';
 
 export class Auction extends Entity<string> {
   private winningBid: WinningBid;

@@ -1,5 +1,11 @@
 import { Member } from './member';
 
-export interface IMemberService {
+interface IMemberService {
   getMember(memberId: string): Member;
+}
+
+export class MemberService implements IMemberService {
+  getMember(memberId: string): Member {
+    throw new Error('Method not implemented.');
+  }
 }
