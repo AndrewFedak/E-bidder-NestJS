@@ -9,17 +9,17 @@ import {
 import {
   IAuctionRepository,
   AUCTION_REPOSITORY_TOKEN,
-} from '@app/listings/src/domain/listing-format/auctions/models/auction/auction.repository';
+} from '@app/listings/src/domain/listing-format/auctions/auction/auction.repository';
 import {
   IBidHistoryRepository,
   BID_HISTORY_REPOSITORY_TOKEN,
-} from '@app/listings/src/domain/listing-format/auctions/models/bids/bid-history.repository';
+} from '@app/listings/src/domain/listing-format/auctions/bids/bid-history.repository';
 
 import { MemberService } from '@app/listings/src/domain/members/member.service';
 
-import { Bid } from '@app/listings/src/domain/listing-format/auctions/models/bids/bid';
-import { Offer } from '@app/listings/src/domain/listing-format/auctions/models/offer';
-import { Money } from '@app/listings/src/domain/money';
+import { Bid } from '@app/listings/src/domain/listing-format/auctions/bids/bid';
+import { Offer } from '@app/listings/src/domain/listing-format/auctions/offer';
+import { Money } from '@app/listings/src/domain/money/money';
 
 import { BidPlaced } from '@app/listings/src/messages/events/auctions/bid-placed.event';
 import { OutBid } from '@app/listings/src/messages/events/auctions/out-bid.event';
@@ -55,23 +55,18 @@ export class BidOnAuctionService {
 
   private bidPlaced(): EventRegister<BidPlaced> {
     return {
-      eventType: BidPlaced,
+      event: BidPlaced,
       action: (e) => {
-        const bidEvent = new Bid(
-          e.auctionId,
-          e.bidderId,
-          e.amountBid,
-          e.timeOfBid,
-        );
+        const bid = new Bid(e.auctionId, e.bidderId, e.amountBid, e.timeOfBid);
 
-        this._bidHistory.add(bidEvent);
+        this._bidHistory.add(bid);
       },
     };
   }
 
   private outBid(): EventRegister<OutBid> {
     return {
-      eventType: OutBid,
+      event: OutBid,
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       action: (_e) => {
         // Add message to Member message board.

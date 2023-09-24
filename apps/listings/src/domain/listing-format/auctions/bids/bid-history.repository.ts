@@ -1,4 +1,4 @@
-﻿import { Bid } from '../models/bid';
+﻿import { Bid } from './bid';
 
 export const BID_HISTORY_REPOSITORY_TOKEN = 'BID_HISTORY_REPOSITORY_TOKEN';
 

@@ -4,23 +4,39 @@ import { DomainEvents } from '@app/listings/src/infrastructure/domain-events';
 import { BidPlaced } from '@app/listings/src/messages/events/auctions/bid-placed.event';
 import { OutBid } from '@app/listings/src/messages/events/auctions/out-bid.event';
 
-import { Money } from '@app/listings/src/domain/money';
-import { WinningBid } from '@app/listings/src/domain/listing-format/auctions/winning-bid';
+import { Money } from '@app/listings/src/domain/money/money';
+import { WinningBid } from '@app/listings/src/domain/listing-format/auctions/winning-bid/winning-bid';
 import { Offer } from '@app/listings/src/domain/listing-format/auctions/offer';
 
 import { AutomaticBidder } from './automatic-bidder';
+import { AuctionSnapshot } from './auction-snapshot';
+
+type AuctionConstructor =
+  | AuctionSnapshot
+  | {
+      id: string;
+      listingId: string;
+      startingPrice: Money;
+      endsAt: Date;
+    };
 
 export class Auction extends Entity<string> {
+  private listingId: string;
+  private startingPrice: Money;
+  private endsAt: Date;
   private winningBid: WinningBid;
   private hasEnded: boolean;
 
-  constructor(
-    public id: string,
-    private listingId: string,
-    private startingPrice: Money,
-    private endsAt: Date,
-  ) {
+  constructor(input: AuctionConstructor) {
     super();
+    if (input instanceof AuctionSnapshot) {
+      this.initFromSnapshot(input);
+    } else {
+      this.id = input.id;
+      this.listingId = input.listingId;
+      this.startingPrice = input.startingPrice;
+      this.endsAt = input.endsAt;
+    }
   }
 
   reduceTheStartingPrice(): void {
@@ -76,13 +92,17 @@ export class Auction extends Entity<string> {
   private placeABidForTheFirst(offer: Offer): void {
     if (offer.maximumBid.isGreaterThanOrEqualTo(this.startingPrice))
       this.place(
-        new WinningBid(
-          offer.bidderId,
-          offer.maximumBid,
-          this.startingPrice,
-          offer.timeOfOffer,
-        ),
+        new WinningBid({
+          auctionId: this.id,
+          bidderId: offer.bidderId,
+          maximumBid: offer.maximumBid,
+          bid: this.startingPrice,
+          timeOfBid: offer.timeOfOffer,
+        }),
       );
+  }
+  private hasACurrentBid(): boolean {
+    return this.winningBid != null;
   }
 
   private place(newBid: WinningBid): void {
@@ -99,5 +119,30 @@ export class Auction extends Entity<string> {
         newBid.timeOfBid,
       ),
     );
+  }
+
+  getSnapshot(): AuctionSnapshot {
+    const snapshot = new AuctionSnapshot();
+    snapshot.id = this.id;
+    snapshot.listingId = this.listingId;
+    snapshot.startingPrice = this.startingPrice.getSnapshot().value;
+    snapshot.endsAt = this.endsAt;
+    snapshot.version = this.version;
+
+    if (this.hasACurrentBid())
+      snapshot.winningBid = this.winningBid.getSnapshot();
+
+    return snapshot;
+  }
+
+  private initFromSnapshot(snapshot: AuctionSnapshot): void {
+    this.id = snapshot.id;
+    this.startingPrice = new Money(snapshot.startingPrice);
+    this.endsAt = snapshot.endsAt;
+    this.listingId = snapshot.listingId;
+    this.version = snapshot.version;
+
+    if (snapshot.winningBid != null)
+      this.winningBid = new WinningBid(snapshot.winningBid);
   }
 }

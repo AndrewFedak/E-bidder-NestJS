@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { DynamoDBModule } from '@app/listings/src/infrastructure/dynamodb/dynamodb.module';
+import { DynamoDBModule } from '@app/listings/src/infrastructure/config/dynamodb/dynamodb.module';
 
 import { AuctionRepository } from '@app/listings/src/infrastructure/auction.repository.impl';
 import { ListingRepository } from '@app/listings/src/infrastructure/listing.repository.impl';

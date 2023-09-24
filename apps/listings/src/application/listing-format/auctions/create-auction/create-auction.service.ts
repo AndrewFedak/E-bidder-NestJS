@@ -10,13 +10,13 @@ import {
   IListingRepository,
   LISTING_REPOSITORY_TOKEN,
 } from '@app/listings/src/domain/listings/listing.repository';
-import { Listing } from '@app/listings/src/domain/listings/listing.entity';
+import { Listing } from '@app/listings/src/domain/listings/listing';
 
 import {
   IAuctionRepository,
   AUCTION_REPOSITORY_TOKEN,
-} from '@app/listings/src/domain/listing-format/auctions/models/auction/auction.repository';
-import { Auction } from '@app/listings/src/domain/listing-format/auctions/models/auction/auction.entity';
+} from '@app/listings/src/domain/listing-format/auctions/auction/auction.repository';
+import { Auction } from '@app/listings/src/domain/listing-format/auctions/auction/auction';
 
 import { Money } from '@app/listings/src/domain/money';
 

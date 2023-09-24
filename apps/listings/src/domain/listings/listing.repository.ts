@@ -1,4 +1,4 @@
-﻿import { Listing } from './listing.entity';
+﻿import { Listing } from './listing';
 
 export const LISTING_REPOSITORY_TOKEN = 'LISTING_REPOSITORY_TOKEN';
 

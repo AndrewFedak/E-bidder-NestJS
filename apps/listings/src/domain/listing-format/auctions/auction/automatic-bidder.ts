@@ -1,5 +1,5 @@
 ﻿import { Offer } from '@app/listings/src/domain/listing-format/auctions/offer';
-import { WinningBid } from '@app/listings/src/domain/listing-format/auctions/winning-bid';
+import { WinningBid } from '@app/listings/src/domain/listing-format/auctions/winning-bid/winning-bid';
 
 // Domain service (Chapter 17 of DDD book)
 // A primary concern for domain services is carrying out some behavior involving entities or value objects.

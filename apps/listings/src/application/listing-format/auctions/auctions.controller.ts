@@ -12,7 +12,7 @@ import {
 import { CreateAuctionService } from './create-auction/create-auction.service';
 import { BidOnAuctionService } from './bid-on-auction/bid-on-auction.service';
 import { QueryAuctionStatus } from './query-auction-status/query-auction-status.service';
-import { QueryBidHistory } from './query-bid-history/query-bid-history,service';
+import { QueryBidHistory } from './query-bid-history/query-bid-history.service';
 
 import { CreateAuctionDto } from './create-auction/auction-creation.dto';
 import { BidOnAuctionDto } from './bid-on-auction/bid-on-auction.dto';

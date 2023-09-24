@@ -1,4 +1,4 @@
-﻿import { Listing } from '@app/listings/src/domain/listings/listing.entity';
+﻿import { Listing } from '@app/listings/src/domain/listings/listing';
 
 import { Money } from '@app/listings/src/domain/money';
 

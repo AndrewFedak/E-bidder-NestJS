@@ -1,15 +1,17 @@
-import { Inject, ClassProvider } from '@nestjs/common';
+import { Inject, ClassProvider, Injectable } from '@nestjs/common';
 
-import { DYNAMODB_TOKEN } from './dynamodb/dynamodb.module';
+import { DYNAMODB_TOKEN } from './config/dynamodb/dynamodb.module';
 
 import {
   IListingRepository,
   LISTING_REPOSITORY_TOKEN,
 } from '../domain/listings/listing.repository';
-import { Listing } from '../domain/listings/listing.entity';
+import { Listing } from '../domain/listings/listing';
 
+@Injectable()
 class ListingRepositoryImplementation implements IListingRepository {
   constructor(@Inject(DYNAMODB_TOKEN) private readonly _dynamoDB: any) {}
+
   add(listing: Listing): void {
     throw new Error('Method not implemented.');
   }

@@ -1,5 +1,9 @@
 import { ValueObject } from '@app/listings/src/infrastructure/value-object';
 
+import { MoneyCannotBeANegativeValueException } from './money-cannot-be-negative.exception';
+import { MoreThanTwoDecimalPlacesInMoneyValueException } from './more-than-two-decimal-places-in-money-value.exception';
+import { MoneySnapshot } from './money-snapshot';
+
 export class Money extends ValueObject<Money> {
   protected value: number;
 
@@ -11,14 +15,12 @@ export class Money extends ValueObject<Money> {
   }
 
   private throwExceptionIfNotValid(value: number): void {
-    if (value % 0.01 != 0) {
-      // throw new MoreThanTwoDecimalPlacesInMoneyValueException();
-      throw new Error();
+    if (value % 0.01 !== 0) {
+      throw new MoreThanTwoDecimalPlacesInMoneyValueException();
     }
 
     if (value < 0) {
-      // throw new MoneyCannotBeANegativeValueException();
-      throw new Error();
+      throw new MoneyCannotBeANegativeValueException();
     }
   }
   add(money: Money): Money {
@@ -38,5 +40,9 @@ export class Money extends ValueObject<Money> {
   }
   protected override getAttributesToIncludeInEqualityCheck() {
     return [this.value];
+  }
+
+  getSnapshot(): MoneySnapshot {
+    return new MoneySnapshot(this.value);
   }
 }

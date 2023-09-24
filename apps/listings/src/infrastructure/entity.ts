@@ -1,4 +1,4 @@
 ﻿export abstract class Entity<TId> {
-  id: TId;
-  version: number;
+  protected id: TId;
+  protected version: number;
 }

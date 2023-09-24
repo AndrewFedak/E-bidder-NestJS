@@ -1,7 +1,7 @@
 ﻿import { Inject } from '@nestjs/common';
 
 import { IClock } from '@app/listings/src/infrastructure/clock';
-import { DYNAMODB_TOKEN } from '@app/listings/src/infrastructure/dynamodb/dynamodb.module';
+import { DYNAMODB_TOKEN } from '@app/listings/src/infrastructure/config/dynamodb/dynamodb.module';
 
 import { IBidHistoryRepository } from '@app/listings/src/domain/listing-format/auctions/models/bids/bid-history.repository';
 

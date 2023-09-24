@@ -1,6 +1,6 @@
 ﻿import { Inject } from '@nestjs/common';
 
-import { DYNAMODB_TOKEN } from '@app/listings/src/infrastructure/dynamodb/dynamodb.module';
+import { DYNAMODB_TOKEN } from '@app/listings/src/infrastructure/config/dynamodb/dynamodb.module';
 
 import { BidInformation } from './bid-information';
 

@@ -1,6 +1,6 @@
 ﻿import { ValueObject } from '@app/listings/src/infrastructure/value-object';
 
-import { Money } from '@app/listings/src/domain/money';
+import { Money } from '@app/listings/src/domain/money/money';
 
 export class Price extends ValueObject<Price> {
   constructor(public amount: Money) {
