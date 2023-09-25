@@ -7,13 +7,13 @@ import { IBidHistoryRepository } from '@app/listings/src/domain/listing-format/a
 
 import { AuctionStatus } from './auction-status';
 
-// No need to extend existing (to not pollute ad-hoc queries) repository methods
-// and create new for methods for reporting/UI interface that maybe be unique for specific current requirement and require specific attributes to be retrieved from query
+// Instead of returning the domain object, you will use a simple view model (AuctionStatus).
 
-// Thus, we may build that reporting query within Service just with access to Persistence framework because excessive complexity of abstracting such method may be
-//    quite complex (a lot of specifically defined methods may add excessive complexity to codebase, thus redability and maintainability would struggle)
-//    inefficient (somehow generalized methods could fetch some unnessesary data that would be filtered here,
-//                  but they went through a network thus cost of transfering excessive attributes could badly affect performance)
+/* The auction status query requires native SQL to be used because you have no public getters to
+transform the aggregate into an AuctionStatus DTO. 
+
+However, this cleanly separates the domain model from the application’s reporting needs 
+and prevents the repository from having to deal with reporting concerns. */
 
 export class QueryAuctionStatus {
   constructor(

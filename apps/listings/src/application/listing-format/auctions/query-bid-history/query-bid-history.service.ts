@@ -4,6 +4,20 @@ import { DYNAMODB_TOKEN } from '@app/listings/src/infrastructure/config/dynamodb
 
 import { BidInformation } from './bid-information';
 
+/*
+The other report that the application needs to give access to is the history of bids against the auction. 
+
+Again, you don’t want to expose your domain objects, so you will create a specific DTO, shown in Listing 21‐63. 
+
+Even though it closely resembles the real Bid domain object, the BidInformation class represents a completely different concern z
+and will not be affected if the Bid value object evolves. 
+*/
+
+/* 
+Again, the query service, Listing 21‐64, that pulls back information on the bids placed against an auction
+needs to go directly to the database to pull back a view because of the encapsulated domain model.
+*/
+
 export class QueryBidHistory {
   constructor(@Inject(DYNAMODB_TOKEN) private readonly _dynamoDB: any) {}
 
