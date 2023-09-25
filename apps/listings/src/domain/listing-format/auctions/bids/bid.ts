@@ -1,10 +1,9 @@
 ﻿import { ValueObject } from 'apps/listings/src/infrastructure/value-object';
-import { Money } from '../../../../money';
 
+import { Money } from '@app/listings/src/domain/money/money';
 export class Bid extends ValueObject<Bid> {
-  private id: string;
-
   constructor(
+    public id: string,
     public auctionId: string,
     public bidderId: string,
     public amountBid: Money,
@@ -12,6 +11,7 @@ export class Bid extends ValueObject<Bid> {
   ) {
     super();
   }
+
   protected override getAttributesToIncludeInEqualityCheck() {
     return [
       this.auctionId,

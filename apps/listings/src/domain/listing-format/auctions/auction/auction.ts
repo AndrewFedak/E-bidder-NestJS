@@ -61,9 +61,8 @@ export class Auction extends Entity<string> {
   placeBidFor(offer: Offer, currentTime: Date): void {
     if (this.stillInProgress(currentTime)) {
       if (this.firstOffer()) {
-        return this.placeABidForTheFirst(offer);
-      }
-      if (this.bidderIsIncreasingMaximumBidToNew(offer)) {
+        this.placeABidForTheFirst(offer);
+      } else if (this.bidderIsIncreasingMaximumBidToNew(offer)) {
         this.winningBid = this.winningBid.raiseMaximumBidTo(offer.maximumBid);
       } else if (this.winningBid.canBeExceededBy(offer.maximumBid)) {
         const newBids = new AutomaticBidder().generateNextSequenceOfBidsAfter(
@@ -89,6 +88,10 @@ export class Auction extends Entity<string> {
     return this.winningBid == null;
   }
 
+  private hasACurrentBid(): boolean {
+    return this.winningBid != null;
+  }
+
   private placeABidForTheFirst(offer: Offer): void {
     if (offer.maximumBid.isGreaterThanOrEqualTo(this.startingPrice))
       this.place(
@@ -100,9 +103,6 @@ export class Auction extends Entity<string> {
           timeOfBid: offer.timeOfOffer,
         }),
       );
-  }
-  private hasACurrentBid(): boolean {
-    return this.winningBid != null;
   }
 
   private place(newBid: WinningBid): void {

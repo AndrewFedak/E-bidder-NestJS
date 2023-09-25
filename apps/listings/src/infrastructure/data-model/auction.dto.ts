@@ -14,14 +14,9 @@ export class AuctionDTO {
   MaximumBid: AttributeValue.NMember;
   TimeOfBid: AttributeValue.SMember;
 
-  constructor({
-    id,
-    listingId,
-    startingPrice,
-    endsAt,
-    winningBid,
-    version,
-  }: AuctionSnapshot) {
+  constructor(snapshot: AuctionSnapshot) {
+    const { id, listingId, startingPrice, endsAt, winningBid, version } =
+      snapshot;
     this.Id = { S: id };
     this.ListingId = { S: listingId };
     this.StartingPrice = { N: `${startingPrice}` };

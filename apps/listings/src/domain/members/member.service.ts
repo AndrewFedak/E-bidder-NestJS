@@ -1,11 +1,11 @@
 import { Member } from './member';
 
 interface IMemberService {
-  getMember(memberId: string): Member;
+  getMember(memberId: string): Promise<Member>;
 }
 
 export class MemberService implements IMemberService {
-  getMember(memberId: string): Member {
+  async getMember(memberId: string): Promise<Member> {
     throw new Error('Method not implemented.');
   }
 }

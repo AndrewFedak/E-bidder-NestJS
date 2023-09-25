@@ -1,6 +1,7 @@
 ﻿import { Inject } from '@nestjs/common';
+import { v4 as uuid } from 'uuid';
 
-import { IClock } from '@app/listings/src/infrastructure/clock';
+import { Clock } from '@app/listings/src/infrastructure/clock';
 import {
   DomainEvents,
   EventRegister,
@@ -30,18 +31,22 @@ export class BidOnAuctionService {
     @Inject(BID_HISTORY_REPOSITORY_TOKEN)
     private _bidHistory: IBidHistoryRepository,
     private _memberService: MemberService,
-    private _clock: IClock,
+    private _clock: Clock,
   ) {}
 
-  bid(auctionId: string, memberId: string, amount: number): void {
+  async bid(
+    auctionId: string,
+    memberId: string,
+    amount: number,
+  ): Promise<void> {
     const bidPlacedEventReg = DomainEvents.register(this.bidPlaced());
     const outBidEventReg = DomainEvents.register(this.outBid());
 
     try {
-      const member = this._memberService.getMember(memberId);
+      const member = await this._memberService.getMember(memberId);
 
       if (member.canBid) {
-        const auction = this._auctions.findBy(auctionId);
+        const auction = await this._auctions.findBy(auctionId);
         const bidAmount = new Money(amount);
         const offer = new Offer(memberId, bidAmount, this._clock.time());
 
@@ -57,7 +62,13 @@ export class BidOnAuctionService {
     return {
       event: BidPlaced,
       action: (e) => {
-        const bid = new Bid(e.auctionId, e.bidderId, e.amountBid, e.timeOfBid);
+        const bid = new Bid(
+          uuid(),
+          e.auctionId,
+          e.bidderId,
+          e.amountBid,
+          e.timeOfBid,
+        );
 
         this._bidHistory.add(bid);
       },

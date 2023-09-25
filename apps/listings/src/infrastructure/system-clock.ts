@@ -1,6 +1,6 @@
-﻿import { IClock } from './clock';
+﻿import { Clock } from './clock';
 
-export class SystemClock implements IClock {
+export class SystemClock implements Clock {
   time() {
     return new Date();
   }
