@@ -1,5 +1,4 @@
 ﻿import { Inject } from '@nestjs/common';
-import { v4 as uuid } from 'uuid';
 
 import { Clock } from '@app/listings/src/infrastructure/clock';
 import {
@@ -62,13 +61,7 @@ export class BidOnAuctionService {
     return {
       event: BidPlaced,
       action: (e) => {
-        const bid = new Bid(
-          uuid(),
-          e.auctionId,
-          e.bidderId,
-          e.amountBid,
-          e.timeOfBid,
-        );
+        const bid = new Bid(e.auctionId, e.bidderId, e.amountBid, e.timeOfBid);
 
         this._bidHistory.add(bid);
       },

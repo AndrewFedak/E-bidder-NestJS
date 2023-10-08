@@ -3,9 +3,10 @@
 import { Money } from '@app/listings/src/domain/money/money';
 export class Bid extends ValueObject<Bid> {
   constructor(
-    public id: string,
+    // composite index
     public auctionId: string,
     public bidderId: string,
+    //
     public amountBid: Money,
     public timeOfBid: Date,
   ) {

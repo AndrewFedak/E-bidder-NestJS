@@ -1,4 +1,4 @@
-﻿import { Money } from '../../../domain/money';
+﻿import { Money } from '../../../domain/money/money';
 
 export class BidPlaced {
   constructor(
